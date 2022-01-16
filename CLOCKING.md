@@ -1,7 +1,7 @@
 # Clocking
 
 - Main oscillator (MAINCK) is 3MHz to 20MHz.
--- Connects to xtal
+-- Connects to xtal (18.432 MHz)
 -- Must be enabled first (bit MOSCEN/CKGR_MOR):
 ```assembly
   // Enable the main oscillator
@@ -14,12 +14,19 @@
 -- Set divider (DIVA/DIVB) between 1 and 255
 -- Optionally set multiplier (MULA/MULB) 1-2047 (it adds 1 to this)
 -- Set PLLCOUNT field in CKGR_PLLR in SCLK cycles before changing PLL fields
+-- For ethernet, output 80MHz by mul 625 div 144
+-- For USB, output 48MHz by mul 125 div 48
+-- [Calculator](http://ww1.microchip.com/downloads/en/DeviceDoc/AT91SAM_pll.htm)
 
 - Master Clock (MCK) runs most peripherals and cpu
 -- Select between SLCK,MAINCK,PLLACK,PLLBCK in PMC_MCKR
 -- Prescaler divides it 1-64 (it adds 1)
 -- Output after PREScaler goes to processor clock PCK
 -- Divider MDIV further divides it 1-4
+
+- Peripheral clocks can be enabled for each peripheral
+-- Clock enable disable status regs are: PMC_PCER PMC_PCDR PMC_PCSR
+
 
 - USB clock takes input only from PLLB
 -- PLLB must be 48MHz, 96MHz or 192MHz (Divider is 1-4)
