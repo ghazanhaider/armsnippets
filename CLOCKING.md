@@ -11,31 +11,31 @@
 ```
 
 - PLL clock (PLLACK/PLLBCK) inputs MAINCK
--- Set divider (DIVA/DIVB) between 1 and 255
--- Optionally set multiplier (MULA/MULB) 1-2047 (it adds 1 to this)
--- Set PLLCOUNT field in CKGR_PLLR in SCLK cycles before changing PLL fields
--- For ethernet, output 80MHz by mul 625 div 144
--- For USB, output 48MHz by mul 125 div 48
--- [Calculator](http://ww1.microchip.com/downloads/en/DeviceDoc/AT91SAM_pll.htm)
+  - Set divider (DIVA/DIVB) between 1 and 255
+  - Optionally set multiplier (MULA/MULB) 1-2047 (it adds 1 to this)
+  - Set PLLCOUNT field in CKGR_PLLR in SCLK cycles before changing PLL fields
+  - For ethernet, output 80MHz by mul 625 div 144
+  - For USB, output 48MHz by mul 125 div 48
+  - [Calculator](http://ww1.microchip.com/downloads/en/DeviceDoc/AT91SAM_pll.htm)
 
 - Master Clock (MCK) runs most peripherals and cpu
--- Select between SLCK,MAINCK,PLLACK,PLLBCK in PMC_MCKR
--- Prescaler divides it 1-64 (it adds 1)
--- Output after PREScaler goes to processor clock PCK
--- Divider MDIV further divides it 1-4
+  - Select between SLCK,MAINCK,PLLACK,PLLBCK in PMC_MCKR
+  - Prescaler divides it 1-64 (it adds 1)
+  - Output after PREScaler goes to processor clock PCK
+  - Divider MDIV further divides it 1-4
 
 - Peripheral clocks can be enabled for each peripheral
--- Clock enable disable status regs are: PMC_PCER PMC_PCDR PMC_PCSR
+  - Clock enable disable status regs are: PMC_PCER PMC_PCDR PMC_PCSR
 
 
 - USB clock takes input only from PLLB
--- PLLB must be 48MHz, 96MHz or 192MHz (Divider is 1-4)
+  - PLLB must be 48MHz, 96MHz or 192MHz (Divider is 1-4)
 
 
 - MDC is ethernet clock that must be 2.5MHz
--- MCK divided by 8,16,32,64 in EMAC_NCFGR (20MHz to 160MHz)
+  - MCK divided by 8,16,32,64 in EMAC_NCFGR (20MHz to 160MHz)
 
 - Board has:
--- 18.432MHz at XIN XOUT
--- 32.768kHz at XIN32 XOUT32
--- 25MHz and 50MHz at the ethernet controller
+  - 18.432MHz at XIN XOUT
+  - 32.768kHz at XIN32 XOUT32
+  - 25MHz and 50MHz at the ethernet controller
