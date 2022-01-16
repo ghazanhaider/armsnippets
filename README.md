@@ -13,6 +13,10 @@
   ...
   mov pc,lr
 ```
+## Clocking
+[Clocking](https://github.com/ghazanhaider/armsnippets/edit/master/CLOCKING.md)
+
+## IO
 
 ### Light up an LED
 ```assembly
