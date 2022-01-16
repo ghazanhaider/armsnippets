@@ -17,16 +17,38 @@
   - For ethernet, output 80MHz by mul 625 div 144
   - For USB, output 48MHz by mul 125 div 48
   - [Calculator](http://ww1.microchip.com/downloads/en/DeviceDoc/AT91SAM_pll.htm)
+ ```assembly
+  // PLLA 80MHz for Ethernet
+  //  OUTA is 00 for 80MHz freq range
+  //  PLLACOUNT 6
+  //  MULA 124 (multiplier adds 1)
+  //  DIVA 144
+  ldr r1, =PMC_BASE
+  ldr r0, =0x22700690
+  str r0, [r1, #CKGR_PLLAR_OFFSET]
+```
 
-- Master Clock (MCK) runs most peripherals and cpu
+- Master Clock (MCK) runs most peripherals and CPU
   - Select between SLCK,MAINCK,PLLACK,PLLBCK in PMC_MCKR
   - Prescaler divides it 1-64 (it adds 1)
   - Output after PREScaler goes to processor clock PCK
   - Divider MDIV further divides it 1-4
+```assembly
+  // Selecting PLLA
+  ldr r1, =PMC_BASE
+  ldr r0, =0x2
+  str r0, [r1, #PMC_MCKR_OFFSET]
+```
 
 - Peripheral clocks can be enabled for each peripheral
   - Clock enable disable status regs are: PMC_PCER PMC_PCDR PMC_PCSR
-
+  - Ethernet is peripheral number 21
+```assembly
+  // Enabling peripheral clock
+  ldr r1, =PMC_BASE
+  ldr r0, =0x00200000
+  str r0, [r1, #PMC_PCER_OFFSET]
+```
 
 - USB clock takes input only from PLLB
   - PLLB must be 48MHz, 96MHz or 192MHz (Divider is 1-4)
