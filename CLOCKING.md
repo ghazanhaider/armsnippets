@@ -21,8 +21,8 @@
   // PLLA 80MHz for Ethernet
   //  OUTA is 00 for 80MHz freq range
   //  PLLACOUNT 6
-  //  MULA 124 (multiplier adds 1)
-  //  DIVA 144
+  //  MULA 624 (multiplier adds 1) = hex 270
+  //  DIVA 144 = hex 90
   ldr r1, =PMC_BASE
   ldr r0, =0x22700690
   str r0, [r1, #CKGR_PLLAR_OFFSET]
